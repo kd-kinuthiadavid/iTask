@@ -11,6 +11,23 @@ router.get("/", (req, res) => {
 });
 
 /**
+ * @route  GET: api/auth/user/:id
+ * @description get a user by their id
+ * @access Private
+ */
+router.get(
+  "/user/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findByPk(req.params.id)
+      .then((user) => res.json(user))
+      .catch((err) =>
+        console.error("****** err fetching user by id *********", err)
+      );
+  }
+);
+
+/**
  * @route  POST: api/auth/register
  * @description register a user
  * @access Public
