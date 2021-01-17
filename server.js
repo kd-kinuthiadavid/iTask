@@ -1,8 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const db = require("./config/dbConfig");
 
 // create an app instance
 const app = express();
+
+/**
+ * test the db connection
+ * @see - https://sequelize.org/master/manual/getting-started.html
+ */
+db.authenticate()
+  .then(() =>
+    console.log(
+      "****** db connection has been established successfully *******"
+    )
+  )
+  .catch((err) =>
+    console.error("****** Err: Unable to connect to the database ******", err)
+  );
 
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
