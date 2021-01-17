@@ -1,4 +1,5 @@
 const { DataTypes, Sequelize } = require("sequelize");
+const Task = require("./Task");
 const db = require("../config/dbConfig");
 
 /**
