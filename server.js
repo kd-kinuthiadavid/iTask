@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 const db = require("./config/dbConfig");
+
+// import routes
+const auth = require("./routes/auth.js");
 
 // create an app instance
 const app = express();
@@ -19,9 +23,18 @@ db.authenticate()
     console.error("****** Err: Unable to connect to the database ******", err)
   );
 
+// passport config
+require("./config/passport")(passport);
+
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// passport middleware
+app.use(passport.initialize());
+
+// register routes
+app.use("/api/auth", auth);
 
 const port = process.env.PORT || 5000;
 
