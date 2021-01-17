@@ -8,19 +8,12 @@ import { Button, Label } from "reactstrap";
 
 import { registerUser } from "../../redux/actions/authActions";
 
-const Register = ({ registerUser }) => {
+const Register = ({ registerUser, errors }) => {
   // handle submit
   const onSubmit = (values) => {
     console.log("**** values from the form ***", values);
-    const { firstName, lastName, email, dateOfBirth, isAdmin } = values;
 
     registerUser(values);
-
-    // make the request to the api
-    // axios
-    //   .post("http://localhost:5000/api/auth/register", values)
-    //   .then((res) => console.log("**** created user ****", res))
-    //   .catch((err) => console.error("*** err creating user ****", err));
   };
 
   // use Yup to define a validation schema
@@ -104,10 +97,12 @@ const Register = ({ registerUser }) => {
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors,
 });
 
 export default connect(mapStateToProps, { registerUser })(Register);
