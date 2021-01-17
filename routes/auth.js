@@ -154,4 +154,59 @@ router.post("/login", (req, res) => {
     );
 });
 
+/**
+ * @route  PATCH: api/auth/user/update/:id
+ * @description update a user
+ * @access Private
+ */
+router.patch(
+  "/user/update/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // find user by id
+    User.findByPk(req.params.id)
+      .then((user) => {
+        if (!user) {
+          return res
+            .status(404)
+            .json({ error: "We couldn't find a user by that id" });
+        }
+
+        // update if user exists
+        const parsedUser = {};
+        if (req.body.firstName) parsedUser.firstName = req.body.firstName;
+        if (req.body.lastName) parsedUser.lastName = req.body.lastName;
+        if (req.body.email) parsedUser.email = req.body.email;
+        if (req.body.dateOfBirth) parsedUser.dateOfBirth = req.body.dateOfBirth;
+        if (req.body.isAdmin) parsedUser.isAdmin = req.body.isAdmin;
+
+        User.update(parsedUser, {
+          where: { id: req.params.id },
+          // return the updated object after update
+          // @see - https://stackoverflow.com/a/40543424/10774498
+          returning: true,
+          plain: true,
+        })
+          .then((user) =>
+            res.json({
+              msg: `user of id ${req.params.id} has been successfully updated`,
+              data: user,
+            })
+          )
+          .catch((err) =>
+            console.error(
+              "*** an error occurred while updating a user ****",
+              err
+            )
+          );
+      })
+      .catch((err) =>
+        console.error(
+          "**** an error occurred while fetching user by id *****",
+          err
+        )
+      );
+  }
+);
+
 module.exports = router;
