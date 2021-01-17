@@ -1,13 +1,22 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 
 import { Button, Label } from "reactstrap";
 
 const Register = () => {
   // handle submit
-  const onSubmit = (values) =>
+  const onSubmit = (values) => {
     console.log("**** values from the form ***", values);
+    const { firstName, lastName, email, dateOfBirth, isAdmin } = values;
+
+    // make the request to the api
+    axios
+      .post("http://localhost:5000/api/auth/register", values)
+      .then((res) => console.log("**** created user ****", res))
+      .catch((err) => console.error("*** err creating user ****", err));
+  };
 
   // use Yup to define a validation schema
   const validationSchema = Yup.object({
