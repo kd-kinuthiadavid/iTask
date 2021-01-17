@@ -2,6 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./config/dbConfig");
 
+// import routes
+const auth = require("./routes/auth.js");
+
 // create an app instance
 const app = express();
 
@@ -22,6 +25,9 @@ db.authenticate()
 // body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// register routes
+app.use("/api/auth", auth);
 
 const port = process.env.PORT || 5000;
 
