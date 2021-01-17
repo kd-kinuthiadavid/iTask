@@ -10,6 +10,14 @@ const Task = db.define(
   "Task",
   // define model attrs
   {
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false, // a task must be assigned to someone
+      references: {
+        model: User,
+        key: "id",
+      },
+    },
     name: {
       type: DataTypes.STRING,
     },
@@ -32,17 +40,11 @@ const Task = db.define(
 );
 
 /**
- * define a M:1 association with the User model
- * i.e, one user can have many tasks
- */
-Task.belongsTo(User);
-
-/**
  * @description - model and db synchronisation
  * @see - https://sequelize.org/master/manual/model-basics.html
  * @todo - remove this logic in prod; reason -> we should use migrations in prod
  */
-User.sync({ alter: true })
+Task.sync({ alter: true })
   .then(() =>
     console.log("****** Task db and model sync was successfull *****")
   )

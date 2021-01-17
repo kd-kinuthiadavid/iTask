@@ -38,11 +38,6 @@ const User = db.define(
 );
 
 /**
- * define a 1:M relationship with the Task model
- */
-User.hasMany(Task, { foreignKey: "userId" });
-
-/**
  * @description - model and db synchronisation
  * @see - https://sequelize.org/master/manual/model-basics.html
  * @todo - remove this logic in prod; reason -> we should use migrations in prod
