@@ -5,10 +5,35 @@ const User = require("../models/User");
 
 const router = express.Router();
 
-// test '/'
+/**
+ * @route  GET: api/auth/
+ * @description test whether the auth resource is working
+ * @access Public
+ */
 router.get("/", (req, res) => {
-  res.send("/api/auth/ works");
+  res.send("welcome to /api/auth/ ");
 });
+
+/**
+ * @route  GET: api/auth/
+ * @description test whether the auth resource is working
+ * @access Private
+ */
+router.get(
+  "/user/all",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    // get all users
+    User.findAll()
+      .then((users) => res.json(users))
+      .catch((err) =>
+        console.error(
+          "***** an error occurred while fetching all users ****",
+          err
+        )
+      );
+  }
+);
 
 /**
  * @route  GET: api/auth/user/:id
