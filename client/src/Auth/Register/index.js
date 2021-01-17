@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-import { Button, Label } from "reactstrap";
+import { Button, Label, UncontrolledAlert } from "reactstrap";
 
 import { registerUser } from "../../redux/actions/authActions";
 
@@ -41,6 +41,11 @@ const Register = ({ registerUser, errors, history }) => {
       validationSchema={validationSchema}
     >
       <Form className="container mt-5 d-flex flex-column">
+        {errors && (
+          <UncontrolledAlert color="danger">
+            {JSON.stringify(errors.email)}
+          </UncontrolledAlert>
+        )}
         {/* firstName */}
         <Label className="text-black" for="firstName">
           First Name
