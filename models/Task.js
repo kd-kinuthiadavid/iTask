@@ -1,46 +1,41 @@
 const { DataTypes, Sequelize } = require("sequelize");
-const Task = require("./Task");
+const User = require("./User");
 const db = require("../config/dbConfig");
 
 /**
- * define a user model
+ * define a task model
  * @see - https://sequelize.org/master/manual/model-basics.html
  */
-const User = db.define(
-  "User",
+const Task = db.define(
+  "Task",
   // define model attrs
   {
-    firstName: {
+    name: {
       type: DataTypes.STRING,
     },
-    lastName: {
+    description: {
       type: DataTypes.STRING,
     },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
+    dateAssigned: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.NOW,
     },
-    isAdmin: {
-      type: DataTypes.BOOLEAN,
-    },
-    dateOfBirth: {
+    dueDate: {
       type: DataTypes.DATE,
       defaultValue: Sequelize.NOW,
     },
   },
   // define other model options
   {
-    tableName: "users",
+    tableName: "tasks",
   }
 );
 
 /**
- * define a 1:M relationship with the Task model
+ * define a M:1 association with the User model
+ * i.e, one user can have many tasks
  */
-User.hasMany(Task, { foreignKey: "userId" });
+Task.belongsTo(User);
 
 /**
  * @description - model and db synchronisation
@@ -49,10 +44,10 @@ User.hasMany(Task, { foreignKey: "userId" });
  */
 User.sync({ alter: true })
   .then(() =>
-    console.log("****** User db and model sync was successfull *****")
+    console.log("****** Task db and model sync was successfull *****")
   )
   .catch((err) =>
-    console.error("***** User db and model sync failed *******", err)
+    console.error("***** Task db and model sync failed *******", err)
   );
 
-module.exports = User;
+module.exports = Task;
