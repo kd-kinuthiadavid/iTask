@@ -20,9 +20,11 @@ const Task = db.define(
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     dateAssigned: {
       type: DataTypes.DATE,
