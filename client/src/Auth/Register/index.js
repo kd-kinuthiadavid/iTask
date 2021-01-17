@@ -1,19 +1,19 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { connect } from "react-redux";
 import { Button, Label } from "reactstrap";
 
 import { registerUser } from "../../redux/actions/authActions";
 
-const Register = ({ registerUser, errors }) => {
+const Register = ({ registerUser, errors, history }) => {
   // handle submit
   const onSubmit = (values) => {
     console.log("**** values from the form ***", values);
 
-    registerUser(values);
+    registerUser(values, history);
   };
 
   // use Yup to define a validation schema
@@ -98,6 +98,7 @@ Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -105,4 +106,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps, { registerUser })(Register);
+export default withRouter(connect(mapStateToProps, { registerUser })(Register));
