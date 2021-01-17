@@ -1,4 +1,6 @@
 const express = require("express");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const router = express.Router();
@@ -52,6 +54,61 @@ router.post("/register", (req, res) => {
         "*** an error occurred when fetching a user by email *****",
         err
       )
+    );
+});
+
+/**
+ * @route  POST: api/auth/login
+ * @description login a user
+ * @access Public
+ */
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  // find user by email
+  User.findOne({ where: { email: email } })
+    .then((user) => {
+      if (!user) {
+        // user doesn't exist
+        return res
+          .status(404)
+          .json({ err: "A user with that email doesn't exist" });
+      }
+
+      /**
+       * if user exsists:
+       *  a. use user info to create a jwt payload
+       *  b. sign and return the token
+       */
+
+      const jwtPayload = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        dateOfBirth: user.dateOfBirth,
+      };
+
+      const jwtPrivateKey = process.env.JWT_SECRET;
+
+      jwt.sign(jwtPayload, jwtPrivateKey, { expiresIn: 3600 }, (err, token) => {
+        if (err) {
+          console.error(
+            "**** an error occurred while signing jwt token ****",
+            err
+          );
+        }
+
+        // return the token
+        res.json({
+          success: true,
+          msg: "jwt auth token received",
+          token: `Bearer ${token}`,
+        });
+      });
+    })
+    .catch((err) =>
+      console.error("******* err when fetching user by email ******", err)
     );
 });
 
