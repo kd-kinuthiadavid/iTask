@@ -4,8 +4,11 @@
   "description": "task list organizer",
   "main": "server.js",
   "scripts": {
+    "client-install": "cd client && npm install",
     "start": "node server",
-    "dev": "nodemon server"
+    "server": "nodemon server",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
