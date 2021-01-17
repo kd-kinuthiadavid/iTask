@@ -1,6 +1,8 @@
-import { Button } from "reactstrap";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-import Navbar from "./General/Navbar/index";
+
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
+import Navbar from "./General/Navbar";
 
 function App() {
   return (
@@ -8,9 +10,8 @@ function App() {
       <div className="App">
         <Navbar />
         <Switch>
-          <Button outline color="primary">
-            primary
-          </Button>
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" component={Register} />
         </Switch>
       </div>
     </Router>
