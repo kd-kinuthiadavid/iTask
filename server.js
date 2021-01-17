@@ -5,6 +5,7 @@ const db = require("./config/dbConfig");
 
 // import routes
 const auth = require("./routes/auth.js");
+const task = require("./routes/task");
 
 // create an app instance
 const app = express();
@@ -35,6 +36,7 @@ app.use(passport.initialize());
 
 // register routes
 app.use("/api/auth", auth);
+app.use("/api/task", task);
 
 const port = process.env.PORT || 5000;
 
