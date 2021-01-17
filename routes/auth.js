@@ -15,8 +15,8 @@ router.get("/", (req, res) => {
 });
 
 /**
- * @route  GET: api/auth/
- * @description test whether the auth resource is working
+ * @route  GET: api/auth/user/all
+ * @description get all users
  * @access Private
  */
 router.get(
