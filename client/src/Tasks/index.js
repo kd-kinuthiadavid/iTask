@@ -7,11 +7,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import emailjs from "emailjs-com";
+import { withRouter } from "react-router-dom";
 
 // initialize emialjs
 emailjs.init("user_TcSW9Ucj4DT9jNZ8bGu7R");
 
-const Task = ({ auth }) => {
+const Task = ({ auth, history }) => {
   const [state, setState] = useState({
     users: [],
     errors: {},
@@ -73,6 +74,10 @@ const Task = ({ auth }) => {
             .then((res) => {
               const { status } = res;
               console.log(`##### success?: ${status} #####`);
+              // redirect to home
+              history.push({
+                pathname: "/",
+              });
             })
             .catch((err) => {
               console.error(
@@ -81,6 +86,11 @@ const Task = ({ auth }) => {
               );
             });
         }
+
+        // redirect home
+        history.push({
+          pathname: "/",
+        });
       })
       .catch((err) =>
         setState((state) => ({
@@ -214,10 +224,11 @@ const Task = ({ auth }) => {
 
 Task.propTypes = {
   auth: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Task);
+export default withRouter(connect(mapStateToProps)(Task));

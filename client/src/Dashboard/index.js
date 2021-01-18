@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
+import Task from "./components/Task";
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -43,8 +45,33 @@ const Dashboard = ({ auth, history }) => {
       pathname: "/createUser",
     });
   };
+
+  useEffect(() => {
+    const fetchAllTasks = () => {
+      axios
+        .get("http://localhost:5000/api/task/tasks/all", {
+          headers: { Authorization: localStorage.getItem("jwtToken") },
+        })
+        .then((tasks) => {
+          console.log("***** all tasks *******", tasks.data);
+          setState((state) => ({
+            ...state,
+            userTasks: tasks.data,
+          }));
+        })
+        .catch((err) =>
+          console.log("****** err when fetching users ****", err)
+        );
+    };
+
+    fetchAllTasks();
+  }, []);
+
   return (
-    <div className="container mt-5">
+    <div
+      className="container mt-5"
+      style={{ display: "flex", justifyContent: "center", width: "80vw" }}
+    >
       <ContentWrapper>
         <div>
           <Img src="https://picsum.photos/id/1/200/300" />
@@ -52,11 +79,6 @@ const Dashboard = ({ auth, history }) => {
         </div>
         <div className="d-flex flex-column">
           <div className="text-lg font-weight-bold">Tasks</div>
-          {userTasks.length ? (
-            <div> your tasks</div>
-          ) : (
-            <div>you haven't been assigned any tasks yet</div>
-          )}
           {auth.user.isAdmin && (
             <Button
               className="mt-3"
@@ -66,6 +88,15 @@ const Dashboard = ({ auth, history }) => {
               Create A Task
             </Button>
           )}
+          {userTasks.length ? (
+            <div>
+              {userTasks.map((task) => (
+                <Task key={task.id} task={task} />
+              ))}
+            </div>
+          ) : (
+            <div>you haven't been assigned any tasks yet</div>
+          )}
         </div>
         {auth.user.isAdmin && (
           <div className="d-flex flex-column">
@@ -74,7 +105,7 @@ const Dashboard = ({ auth, history }) => {
               <div>you have users</div>
             ) : (
               <div className="text-md">
-                You aren't managing any users, create some? <br />
+                Create users <br />
                 <Button
                   className="mt-3"
                   color="primary"

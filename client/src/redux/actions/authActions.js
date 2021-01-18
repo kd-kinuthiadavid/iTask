@@ -44,7 +44,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 
       // redirect to "/dashboard"
       history.push({
-        pathname: "/dashboard",
+        pathname: "/",
       });
     })
     .catch((err) =>

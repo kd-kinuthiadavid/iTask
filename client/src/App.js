@@ -50,11 +50,11 @@ function App() {
         <div className="App">
           <Navbar />
           <Switch>
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/" exact component={Dashboard} />
             <Route
               path="/createUser"
               render={(props) => (
-                <Register isAdmin={false} redirectPath="dashboard" {...props} />
+                <Register isAdmin={false} redirectPath="" {...props} />
               )}
             />
             <Route path="/login" component={Login} />
