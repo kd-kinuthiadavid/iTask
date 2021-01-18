@@ -54,3 +54,17 @@ export const loginUser = (userData, history) => (dispatch) => {
       })
     );
 };
+
+export const logOut = () => (dispatch) => {
+  // remove token from local storage
+  localStorage.removeItem("jwtToken");
+
+  // remove auth header for subsequent requests
+  setAuthTokenHeader(false);
+
+  // set current user to {} and isAuthenticated to false
+  dispatch({
+    type: types.SET_CURRENT_USER,
+    payload: {},
+  });
+};
