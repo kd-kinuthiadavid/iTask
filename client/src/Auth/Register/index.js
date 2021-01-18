@@ -9,12 +9,12 @@ import isEmpty from "lodash/isEmpty";
 
 import { registerUser } from "../../redux/actions/authActions";
 
-const Register = ({ registerUser, errors, history }) => {
+const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
   // handle submit
   const onSubmit = (values) => {
     console.log("**** values from the form ***", values);
 
-    registerUser(values, history);
+    registerUser(values, history, redirectPath);
   };
 
   // use Yup to define a validation schema
@@ -33,7 +33,7 @@ const Register = ({ registerUser, errors, history }) => {
     lastName: "",
     email: "",
     dateOfBirth: new Date(),
-    isAdmin: true,
+    isAdmin: isAdmin,
   };
   return (
     <Formik
@@ -105,6 +105,7 @@ Register.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -51,8 +51,19 @@ function App() {
           <Navbar />
           <Switch>
             <Route path="/dashboard" component={Dashboard} />
+            <Route
+              path="/createUser"
+              render={(props) => (
+                <Register isAdmin={false} redirectPath="dashboard" {...props} />
+              )}
+            />
             <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <Route
+              path="/register"
+              render={(props) => (
+                <Register isAdmin={true} redirectPath="login" {...props} />
+              )}
+            />
             <Route path="/task" component={Task} />
           </Switch>
         </div>
