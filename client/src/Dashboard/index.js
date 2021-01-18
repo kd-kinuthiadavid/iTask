@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button } from "reactstrap";
+import { withRouter } from "react-router-dom";
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -21,13 +22,27 @@ const Img = styled.img`
   border-radius: 50%;
 `;
 
-const Dashboard = ({ auth }) => {
+const Dashboard = ({ auth, history }) => {
   const [state, setState] = useState({
     userTasks: [],
     managedUsers: [],
   });
 
   const { userTasks, managedUsers } = state;
+
+  const handleCreateTaskClick = (e) => {
+    e.preventDefault();
+    history.push({
+      pathname: "/task",
+    });
+  };
+
+  const handleCreateUserClick = (e) => {
+    e.preventDefault();
+    history.push({
+      pathname: "/createUser",
+    });
+  };
   return (
     <div className="container mt-5">
       <ContentWrapper>
@@ -43,7 +58,11 @@ const Dashboard = ({ auth }) => {
             <div>you haven't been assigned any tasks yet</div>
           )}
           {auth.user.isAdmin && (
-            <Button className="mt-3" color="primary">
+            <Button
+              className="mt-3"
+              color="primary"
+              onClick={handleCreateTaskClick}
+            >
               Create A Task
             </Button>
           )}
@@ -56,7 +75,11 @@ const Dashboard = ({ auth }) => {
             ) : (
               <div className="text-md">
                 You aren't managing any users, create some? <br />
-                <Button className="mt-3" color="primary">
+                <Button
+                  className="mt-3"
+                  color="primary"
+                  onClick={handleCreateUserClick}
+                >
                   Create Users
                 </Button>
               </div>
@@ -70,10 +93,11 @@ const Dashboard = ({ auth }) => {
 
 Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default withRouter(connect(mapStateToProps)(Dashboard));
