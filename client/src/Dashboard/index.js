@@ -107,7 +107,7 @@ const Dashboard = ({ auth, history }) => {
             {userTasks.length ? (
               <div>
                 {userTasks.map((task) => (
-                  <Task key={task.id} task={task} />
+                  <Task key={task.id} userId={auth.user.id} task={task} />
                 ))}
               </div>
             ) : (
