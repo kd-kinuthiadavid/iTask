@@ -1,4 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
+import isEmpty from "lodash/isEmpty";
 import * as types from "../actionTypes";
 
 const initalState = {
@@ -8,9 +9,10 @@ const initalState = {
 
 export default (state = initalState, action) => {
   switch (action.type) {
-    case types.TEST_AUTH_DISPATCH:
+    case types.SET_CURRENT_USER:
       return {
         ...state,
+        isAuthenticated: !isEmpty(action.payload),
         user: action.payload,
       };
     default:

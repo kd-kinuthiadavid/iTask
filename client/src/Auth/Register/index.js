@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { Button, Label, UncontrolledAlert } from "reactstrap";
+import isEmpty from "lodash/isEmpty";
 
 import { registerUser } from "../../redux/actions/authActions";
 
@@ -41,7 +42,7 @@ const Register = ({ registerUser, errors, history }) => {
       validationSchema={validationSchema}
     >
       <Form className="container mt-5 d-flex flex-column">
-        {errors && (
+        {!isEmpty(errors) && (
           <UncontrolledAlert color="danger">
             {JSON.stringify(errors.email)}
           </UncontrolledAlert>
