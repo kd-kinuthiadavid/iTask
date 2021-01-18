@@ -10,6 +10,7 @@ import Navbar from "./General/Navbar";
 import Dashboard from "./Dashboard";
 import setAuthTokenHeader from "./utils/setAuthTokenHeader";
 import * as types from "./redux/actionTypes";
+import { logOut } from "./redux/actions/authActions";
 
 function App() {
   useEffect(() => {
@@ -25,6 +26,16 @@ function App() {
         type: types.SET_CURRENT_USER,
         payload: decodedJwtToken,
       });
+
+      // check if the token is expired
+      const currentTime = Date.now() / 1000;
+      if (decodedJwtToken.exp < currentTime) {
+        // logout user
+        store.dispatch(logOut());
+
+        // redirect to login
+        window.location.assign("/login");
+      }
     }
   }, []);
 
