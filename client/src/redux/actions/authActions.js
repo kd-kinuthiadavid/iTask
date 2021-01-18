@@ -3,13 +3,13 @@ import axios from "axios";
 import setAuthTokenHeader from "../../utils/setAuthTokenHeader";
 import jwt_decode from "jwt-decode";
 
-export const registerUser = (userData, history) => (dispatch) => {
+export const registerUser = (userData, history, redirectPath) => (dispatch) => {
   axios
     .post("http://localhost:5000/api/auth/register", userData)
     .then((res) => {
       console.log("**** created user ****", res.data);
       history.push({
-        pathname: "/login",
+        pathname: `/${redirectPath}`,
       });
     })
     .catch((err) =>
@@ -44,7 +44,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 
       // redirect to "/dashboard"
       history.push({
-        pathname: "/dashboard",
+        pathname: "/",
       });
     })
     .catch((err) =>
