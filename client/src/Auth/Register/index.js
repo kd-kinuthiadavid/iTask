@@ -35,6 +35,12 @@ const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
     dateOfBirth: new Date(),
     isAdmin: isAdmin,
   };
+
+  const handleRedirectToLogin = (e) => {
+    history.push({
+      pathname: "/login",
+    });
+  };
   return (
     <Formik
       initialValues={initialValues}
@@ -95,6 +101,12 @@ const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
         <Button className="mt-3" type="submit" color="primary">
           Register
         </Button>
+        <small>
+          Already have an account?{" "}
+          <Button color="link" onClick={handleRedirectToLogin}>
+            Login
+          </Button>
+        </small>
       </Form>
     </Formik>
   );
