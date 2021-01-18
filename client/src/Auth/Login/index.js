@@ -28,6 +28,12 @@ const Login = ({ history, auth, errors, loginUser }) => {
   const initialValues = {
     email: "",
   };
+
+  const handleRedirectToRegister = (e) => {
+    history.push({
+      pathname: "/register",
+    });
+  };
   return (
     <Formik
       initialValues={initialValues}
@@ -55,6 +61,12 @@ const Login = ({ history, auth, errors, loginUser }) => {
         <Button className="mt-3" type="submit" color="primary">
           Login
         </Button>
+        <small>
+          Don't have an account?{" "}
+          <Button color="link" onClick={handleRedirectToRegister}>
+            Register
+          </Button>
+        </small>
       </Form>
     </Formik>
   );
