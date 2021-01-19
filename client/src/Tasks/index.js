@@ -160,7 +160,7 @@ const Task = ({ auth, history }) => {
             name="name"
             id="name"
           />
-          <ErrorMessage name="name" component="div" />
+          <ErrorMessage name="name" component="div" style={{ color: "red" }} />
           {/* description */}
           <Label className="text-black" for="description">
             Description
@@ -172,7 +172,11 @@ const Task = ({ auth, history }) => {
             id="description"
             as="textarea"
           />
-          <ErrorMessage name="description" component="div" />
+          <ErrorMessage
+            name="description"
+            component="div"
+            style={{ color: "red" }}
+          />
           {/* assignee */}
           <Label className="text-black" for="userId">
             Assignee
@@ -192,7 +196,11 @@ const Task = ({ auth, history }) => {
                 </option>
               ))}
           </Field>
-          <ErrorMessage name="description" component="div" />
+          <ErrorMessage
+            name="description"
+            component="div"
+            style={{ color: "red" }}
+          />
           {/* dateAssigned */}
           <Label className="text-black" for="dateAssigned">
             Date Assigned
@@ -203,7 +211,11 @@ const Task = ({ auth, history }) => {
             name="dateAssigned"
             id="dateAssigned"
           />
-          <ErrorMessage name="dateAssigned" component="div" />
+          <ErrorMessage
+            name="dateAssigned"
+            component="div"
+            style={{ color: "red" }}
+          />
           {/* dueDate */}
           <Label className="text-black" for="dueDate">
             Due Date
@@ -214,7 +226,11 @@ const Task = ({ auth, history }) => {
             name="dueDate"
             id="dueDate"
           />
-          <ErrorMessage name="dueDate" component="div" />
+          <ErrorMessage
+            name="dueDate"
+            component="div"
+            style={{ color: "red" }}
+          />
           {/* submit btn */}
           <Button className="mt-3" type="submit" color="primary">
             Create Task
