@@ -2,6 +2,9 @@ const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const keys = require("../keys");
+
+const { JWT_SECRET } = keys;
 
 const router = express.Router();
 
@@ -131,7 +134,7 @@ router.post("/login", (req, res) => {
         dateOfBirth: user.dateOfBirth,
       };
 
-      const jwtPrivateKey = process.env.JWT_SECRET;
+      const jwtPrivateKey = JWT_SECRET;
 
       jwt.sign(jwtPayload, jwtPrivateKey, { expiresIn: 3600 }, (err, token) => {
         if (err) {
