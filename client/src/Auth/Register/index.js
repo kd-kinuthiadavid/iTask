@@ -63,7 +63,11 @@ const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
           name="firstName"
           id="firstName"
         />
-        <ErrorMessage name="firstName" component="div" />
+        <ErrorMessage
+          name="firstName"
+          component="div"
+          style={{ color: "red" }}
+        />
         {/* lastName */}
         <Label className="text-black" for="lastName">
           Last Name
@@ -74,7 +78,11 @@ const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
           name="lastName"
           id="lastName"
         />
-        <ErrorMessage name="lastName" component="div" />
+        <ErrorMessage
+          name="lastName"
+          component="div"
+          style={{ color: "red" }}
+        />
         {/* email */}
         <Label className="text-black" for="email">
           Email
@@ -85,7 +93,7 @@ const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
           name="email"
           id="email"
         />
-        <ErrorMessage name="email" component="div" />
+        <ErrorMessage name="email" component="div" style={{ color: "red" }} />
         {/* DOB */}
         <Label className="text-black" for="dateOfBirth">
           Date of birth
@@ -96,7 +104,11 @@ const Register = ({ registerUser, errors, history, isAdmin, redirectPath }) => {
           name="dateOfBirth"
           id="dateOfBirth"
         />
-        <ErrorMessage name="dateOfBirth" component="div" />
+        <ErrorMessage
+          name="dateOfBirth"
+          component="div"
+          style={{ color: "red" }}
+        />
         {/* submit btn */}
         <Button className="mt-3" type="submit" color="primary">
           Register

@@ -56,7 +56,7 @@ const Login = ({ history, auth, errors, loginUser }) => {
           name="email"
           id="email"
         />
-        <ErrorMessage name="email" component="div" />
+        <ErrorMessage name="email" component="div" style={{ color: "red" }} />
         {/* submit btn */}
         <Button className="mt-3" type="submit" color="primary">
           Login
