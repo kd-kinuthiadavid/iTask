@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import emailjs from "emailjs-com";
 import { withRouter } from "react-router-dom";
+import { FormWrapper } from "../styles";
 
 // initialize emialjs
 emailjs.init("user_TcSW9Ucj4DT9jNZ8bGu7R");
@@ -137,88 +138,90 @@ const Task = ({ auth, history }) => {
   }, []);
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      <Form className="container mt-5 d-flex flex-column">
-        {!isEmpty(errors) && (
-          <UncontrolledAlert color="danger">
-            {JSON.stringify(errors.email)}
-          </UncontrolledAlert>
-        )}
-        {/* name */}
-        <Label className="text-black" for="name">
-          Name
-        </Label>
-        <Field
-          className="mb-2 form-control form-text"
-          type="text"
-          name="name"
-          id="name"
-        />
-        <ErrorMessage name="name" component="div" />
-        {/* description */}
-        <Label className="text-black" for="description">
-          Description
-        </Label>
-        <Field
-          className="mb-2 form-control form-text"
-          type="text"
-          name="description"
-          id="description"
-          as="textarea"
-        />
-        <ErrorMessage name="description" component="div" />
-        {/* assignee */}
-        <Label className="text-black" for="userId">
-          Assignee
-        </Label>
-        <Field
-          className="mb-2 form-control form-select"
-          aria-label="select a user"
-          name="userId"
-          id="userId"
-          component="select"
-        >
-          <option defaultValue>Assign task to a user</option>
-          {users.length &&
-            users.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.firstName} {user.lastName}
-              </option>
-            ))}
-        </Field>
-        <ErrorMessage name="description" component="div" />
-        {/* dateAssigned */}
-        <Label className="text-black" for="dateAssigned">
-          Date Assigned
-        </Label>
-        <Field
-          className="mb-2 form-control form-text"
-          type="date"
-          name="dateAssigned"
-          id="dateAssigned"
-        />
-        <ErrorMessage name="dateAssigned" component="div" />
-        {/* dueDate */}
-        <Label className="text-black" for="dueDate">
-          Due Date
-        </Label>
-        <Field
-          className="mb-2 form-control form-text"
-          type="date"
-          name="dueDate"
-          id="dueDate"
-        />
-        <ErrorMessage name="dueDate" component="div" />
-        {/* submit btn */}
-        <Button className="mt-3" type="submit" color="primary">
-          Create Task
-        </Button>
-      </Form>
-    </Formik>
+    <FormWrapper className="container">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="container mt-5 d-flex flex-column">
+          {!isEmpty(errors) && (
+            <UncontrolledAlert color="danger">
+              {JSON.stringify(errors.email)}
+            </UncontrolledAlert>
+          )}
+          {/* name */}
+          <Label className="text-black" for="name">
+            Name
+          </Label>
+          <Field
+            className="mb-2 form-control form-text"
+            type="text"
+            name="name"
+            id="name"
+          />
+          <ErrorMessage name="name" component="div" />
+          {/* description */}
+          <Label className="text-black" for="description">
+            Description
+          </Label>
+          <Field
+            className="mb-2 form-control form-text"
+            type="text"
+            name="description"
+            id="description"
+            as="textarea"
+          />
+          <ErrorMessage name="description" component="div" />
+          {/* assignee */}
+          <Label className="text-black" for="userId">
+            Assignee
+          </Label>
+          <Field
+            className="mb-2 form-control form-select"
+            aria-label="select a user"
+            name="userId"
+            id="userId"
+            component="select"
+          >
+            <option defaultValue>Assign task to a user</option>
+            {users.length &&
+              users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.firstName} {user.lastName}
+                </option>
+              ))}
+          </Field>
+          <ErrorMessage name="description" component="div" />
+          {/* dateAssigned */}
+          <Label className="text-black" for="dateAssigned">
+            Date Assigned
+          </Label>
+          <Field
+            className="mb-2 form-control form-text"
+            type="date"
+            name="dateAssigned"
+            id="dateAssigned"
+          />
+          <ErrorMessage name="dateAssigned" component="div" />
+          {/* dueDate */}
+          <Label className="text-black" for="dueDate">
+            Due Date
+          </Label>
+          <Field
+            className="mb-2 form-control form-text"
+            type="date"
+            name="dueDate"
+            id="dueDate"
+          />
+          <ErrorMessage name="dueDate" component="div" />
+          {/* submit btn */}
+          <Button className="mt-3" type="submit" color="primary">
+            Create Task
+          </Button>
+        </Form>
+      </Formik>
+    </FormWrapper>
   );
 };
 

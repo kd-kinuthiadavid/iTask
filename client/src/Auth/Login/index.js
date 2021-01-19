@@ -6,6 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Button, Label, UncontrolledAlert } from "reactstrap";
 import isEmpty from "lodash/isEmpty";
+import { FormWrapper } from "../../styles";
 
 import { loginUser } from "../../redux/actions/authActions";
 
@@ -35,40 +36,42 @@ const Login = ({ history, auth, errors, loginUser }) => {
     });
   };
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      <Form className="container mt-5 d-flex flex-column">
-        {!isEmpty(errors) && (
-          <UncontrolledAlert color="danger">
-            {JSON.stringify(errors.err)}
-          </UncontrolledAlert>
-        )}
-        {/* email */}
-        <Label className="text-black" for="email">
-          Email
-        </Label>
-        <Field
-          className="mb-2 form-control form-text"
-          type="email"
-          name="email"
-          id="email"
-        />
-        <ErrorMessage name="email" component="div" style={{ color: "red" }} />
-        {/* submit btn */}
-        <Button className="mt-3" type="submit" color="primary">
-          Login
-        </Button>
-        <small>
-          Don't have an account?{" "}
-          <Button color="link" onClick={handleRedirectToRegister}>
-            Register
+    <FormWrapper className="container">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="container mt-5 d-flex flex-column">
+          {!isEmpty(errors) && (
+            <UncontrolledAlert color="danger">
+              {JSON.stringify(errors.err)}
+            </UncontrolledAlert>
+          )}
+          {/* email */}
+          <Label className="text-black" for="email">
+            Email
+          </Label>
+          <Field
+            className="mb-2 form-control form-text"
+            type="email"
+            name="email"
+            id="email"
+          />
+          <ErrorMessage name="email" component="div" style={{ color: "red" }} />
+          {/* submit btn */}
+          <Button className="mt-3" type="submit" color="primary">
+            Login
           </Button>
-        </small>
-      </Form>
-    </Formik>
+          <small>
+            Don't have an account?{" "}
+            <Button color="link" onClick={handleRedirectToRegister}>
+              Register
+            </Button>
+          </small>
+        </Form>
+      </Formik>
+    </FormWrapper>
   );
 };
 
