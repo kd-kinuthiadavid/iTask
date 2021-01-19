@@ -43,7 +43,7 @@ const Login = ({ history, auth, errors, loginUser }) => {
       <Form className="container mt-5 d-flex flex-column">
         {!isEmpty(errors) && (
           <UncontrolledAlert color="danger">
-            {JSON.stringify(errors.message)}
+            {JSON.stringify(errors.err)}
           </UncontrolledAlert>
         )}
         {/* email */}
