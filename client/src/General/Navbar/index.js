@@ -49,7 +49,11 @@ const ItNavbar = ({ auth, logOut }) => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">iTask</NavbarBrand>
+        <NavbarBrand>
+          <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
+            iTask
+          </Link>
+        </NavbarBrand>
         <NavbarToggler onClick={toggleNav} />
         <Collapse isOpen={state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
