@@ -1,5 +1,4 @@
 const { DataTypes, Sequelize } = require("sequelize");
-const User = require("./User");
 const db = require("../config/dbConfig");
 
 /**
@@ -14,7 +13,7 @@ const Task = db.define(
       type: DataTypes.INTEGER,
       allowNull: false, // a task must be assigned to someone
       references: {
-        model: User,
+        model: "users",
         key: "id",
       },
     },
